@@ -29,7 +29,7 @@ A genetic algorithm engine that breeds and walk-forward validates trading strate
 
 ## 📡 Live Signals
 
-> Real-time buy/sell signals from our evolved strategies. Updated daily. All signals are recorded in git history — **immutable and verifiable**.
+Real-time buy/sell signals from evolved strategies. Updated daily. All signals are committed to git history — you can verify every one.
 
 ### Latest Signals
 
@@ -45,14 +45,16 @@ A genetic algorithm engine that breeds and walk-forward validates trading strate
 
 ## 📊 Paper Trading Performance
 
-> Forward-testing evolved strategies with real market data, simulated execution. No hindsight, no cherry-picking.
+Forward-testing evolved strategies on real market data with simulated execution. No hindsight, no cherry-picking.
+
+Paper Trading active — Crypto V13 live since 2026-04-18.
 
 ### Current Paper Portfolio
 
 <!-- PAPER_START -->
 | Strategy | Market | Start Date | Days | Return | Sharpe | MaxDD | Trades | Status |
 |----------|--------|------------|------|--------|--------|-------|--------|--------|
-| *Paper Trading launching soon — engines currently evolving* | | | | | | | | |
+| Crypto V13 | Crypto | 2026-04-18 | 0 | — | — | — | — | 🟢 Live |
 <!-- PAPER_END -->
 
 📁 **Daily P&L reports:** [`paper-trading/`](paper-trading/)  
@@ -62,7 +64,7 @@ A genetic algorithm engine that breeds and walk-forward validates trading strate
 
 ## How It Works
 
-Most quant tools make you **write** the strategy. StratEvo **evolves** them.
+Most quant tools make you write the strategy. StratEvo evolves them instead.
 
 ```
 You write the rules        →  StratEvo discovers the rules
@@ -90,23 +92,23 @@ You hope it generalizes    →  Monte Carlo measures if it does
   Repeat for N generations
 ```
 
-Each DNA is a weight vector across 484+ factors **plus** risk/position parameters — all evolvable:
+Each DNA is a weight vector across 484+ factors plus risk/position parameters — all evolvable:
 
 | Parameter | Range | What it controls |
 |-----------|-------|-----------------|
 | Factor weights (×484) | 0.0–1.0 | Which factors matter and how much |
 | `hold_days` | 2–60 | Day trades through swing trades |
-| `trailing_stop` | % | Lock in profits, trail below peak |
-| `market_regime` | sensitivity | Auto-reduce exposure in bear markets |
-| `kelly_fraction` | 0–1 | Position sizing based on recent win rate |
+| `trailing_stop` | % | Trail below peak to lock in profits |
+| `market_regime` | sensitivity | Reduce exposure automatically in bear markets |
+| `kelly_fraction` | 0–1 | Position sizing from recent win rate |
 
 ---
 
 ## Evolution Results
 
-> Numbers from our running evolution engines. Updated regularly.
+Numbers from our running evolution engines. Updated as generations progress.
 
-### 🇺🇸 US Stocks (100 S&P 500 stocks — Gen 94)
+### 🇺🇸 US Stocks V8 (100 S&P 500 stocks — Gen 136)
 
 | Metric | Best DNA |
 |:------:|:--------:|
@@ -117,35 +119,35 @@ Each DNA is a weight vector across 484+ factors **plus** risk/position parameter
 | Profit Factor | 1.75 |
 | Total Trades | 179 |
 
-### ₿ Crypto (17 assets — Gen 44)
+### ₿ Crypto V13 (17 assets — Gen 53)
 
 | Metric | Best DNA |
 |:------:|:--------:|
-| Annual Return | **77.2%** |
-| Sharpe Ratio | **3.25** |
-| Max Drawdown | 15.7% |
-| Win Rate | 52.3% |
-| Profit Factor | 1.73 |
-| Total Trades | 194 |
+| Annual Return | **69.0%** |
+| Sharpe Ratio | **2.27** |
+| Max Drawdown | 13.0% |
+| Win Rate | 50.0% |
+| Profit Factor | 1.58 |
+| Total Trades | 174 |
 
-**Caveats:** These are backtests with walk-forward validation, not live trades. That's why we're running Paper Trading — to prove it works forward, not just backward.
+These are backtests with walk-forward validation, not live trades. That's the whole point of paper trading — proving it works forward, not just backward.
 
 ---
 
 ## Anti-Overfitting
 
-We learned the hard way. An early version showed 25,000% returns — it was a bug (look-ahead bias).
+We learned this the hard way. An early version showed 25,000% returns. Turned out to be a bug — look-ahead bias.
 
 | Defense | What it does |
 |---------|-------------|
 | **Walk-Forward** | Multi-window OOS validation. Must profit on data it never trained on. |
 | **Monte Carlo** | 1,000 shuffled iterations. p-value < 0.05 or it's luck. |
-| **CPCV** | Combinatorial Purged Cross-Validation — industry standard. |
-| **Arena Mode** | Multiple strategies compete. Crowded signals get penalized. |
+| **CPCV** | Combinatorial Purged Cross-Validation. Industry standard for a reason. |
+| **Arena Mode** | Multiple strategies compete head-to-head. Crowded signals get penalized. |
 | **Bias Detection** | Look-ahead, snooping, survivorship — flagged automatically. |
-| **Turnover Penalty** | Excessive trading punished. Real transaction costs modeled. |
+| **Turnover Penalty** | Excessive trading is punished. Real transaction costs baked in. |
 
-Honest 33% > fake 25,000%.
+An honest 33% beats a fake 25,000%.
 
 ---
 
@@ -162,28 +164,28 @@ Honest 33% > fake 25,000%.
 | Qlib Alpha158 | 11 | Microsoft Qlib compatible factors |
 | + 5 more categories | 37 | Risk, quality, price structure, sentiment, DRL |
 
-All factor weights discovered by evolution — zero manual tuning.
+All factor weights are discovered by evolution. Zero manual tuning.
 
 ---
 
 ## Strategy Styles
 
-The algorithm converges on recognizable trading styles:
+The algorithm converges on recognizable trading styles on its own:
 
-| Style | What the DNA Learned |
+| Style | What the DNA learned |
 |-------|---------------------|
 | **Value Seeker** | Buys cheap, holds patient |
-| **Momentum Rider** | Chases what's moving, cuts what isn't |
+| **Momentum Rider** | Chases runners, dumps laggards |
 | **Mean Reverter** | Bets on bounce-backs |
-| **Flow Reader** | Follows the money — volume precedes price |
+| **Flow Reader** | Follows the money — volume leads price |
 | **Volatility Hunter** | Profits from vol expansion |
-| **Crypto Native** | 200 factors for 24/7 markets |
+| **Crypto Native** | 200 factors built for 24/7 markets |
 
 ---
 
 ## Get Access
 
-StratEvo Pro includes the full evolution engine, paper trading, signal generation, and live exchange connectors.
+StratEvo Pro includes the evolution engine, paper trading, signal generation, and live exchange connectors.
 
 📧 **Contact:** [neuzhou@outlook.com](mailto:neuzhou@outlook.com)  
 💬 **Discord:** [discord.gg/kAQD7Cj8](https://discord.gg/kAQD7Cj8)
@@ -197,8 +199,6 @@ StratEvo Pro includes the full evolution engine, paper trading, signal generatio
 ---
 
 <div align="center">
-
-**The strategies evolve. The signals speak for themselves.**
 
 *Check back daily for updated signals and paper trading results.*
 
